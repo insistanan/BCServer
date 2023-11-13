@@ -68,7 +68,7 @@
         <!--  demo模块  -->
         <dependency>
             <groupId>org.dromara</groupId>
-            <artifactId>ruoyi-demo</artifactId>
+            <artifactId>ruoyi-mealreport</artifactId>
         </dependency>
 
         <dependency>
