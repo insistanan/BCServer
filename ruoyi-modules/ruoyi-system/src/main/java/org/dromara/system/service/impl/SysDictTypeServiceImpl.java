@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import lombok.RequiredArgsConstructor;
 import org.dromara.common.core.constant.CacheConstants;
 import org.dromara.common.core.constant.CacheNames;
 import org.dromara.common.core.exception.ServiceException;
@@ -18,17 +19,21 @@ import org.dromara.common.core.utils.StringUtils;
 import org.dromara.common.mybatis.core.page.PageQuery;
 import org.dromara.common.mybatis.core.page.TableDataInfo;
 import org.dromara.common.redis.utils.CacheUtils;
+import org.dromara.common.satoken.utils.LoginHelper;
+import org.dromara.system.domain.BcDinerdept;
+import org.dromara.system.domain.BcDinerjob;
 import org.dromara.system.domain.SysDictData;
 import org.dromara.system.domain.SysDictType;
 import org.dromara.system.domain.bo.SysDictTypeBo;
 import org.dromara.system.domain.vo.SysDictDataVo;
 import org.dromara.system.domain.vo.SysDictTypeVo;
+import org.dromara.system.mapper.BcDinerdeptMapper;
+import org.dromara.system.mapper.BcDinerjobMapper;
 import org.dromara.system.mapper.SysDictDataMapper;
 import org.dromara.system.mapper.SysDictTypeMapper;
 import org.dromara.system.service.ISysDictTypeService;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,6 +55,10 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService, DictService 
     private final SysDictTypeMapper baseMapper;
     private final SysDictDataMapper dictDataMapper;
 
+    @Autowired
+    private BcDinerjobMapper bcDinerjobMapper;
+    @Autowired
+    private BcDinerdeptMapper bcDinerdeptMapper;
     @Override
     public TableDataInfo<SysDictTypeVo> selectPageDictTypeList(SysDictTypeBo dictType, PageQuery pageQuery) {
         LambdaQueryWrapper<SysDictType> lqw = buildQueryWrapper(dictType);
@@ -96,13 +105,49 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService, DictService 
      * @param dictType 字典类型
      * @return 字典数据集合信息
      */
-    @Cacheable(cacheNames = CacheNames.SYS_DICT, key = "#dictType")
     @Override
     public List<SysDictDataVo> selectDictDataByType(String dictType) {
-        List<SysDictDataVo> dictDatas = dictDataMapper.selectDictDataByType(dictType);
-        if (CollUtil.isNotEmpty(dictDatas)) {
+        List<SysDictDataVo> dictDatas = new ArrayList<>();
+        if (dictType.contains("sys_")){
+            dictDatas = dictDataMapper.selectDictDataByType(dictType);
+            if (CollUtil.isNotEmpty(dictDatas)) {
+                return dictDatas;
+            }
+        }else {
+            String tenantId = LoginHelper.getTenantId();
+            int i = 0;
+            if (dictType.equals("bc_dinerjob")){
+                List<BcDinerjob> dinerjobList = bcDinerjobMapper.selectList(new LambdaQueryWrapper<BcDinerjob>().eq(BcDinerjob::getTenantId, tenantId));
+                for (BcDinerjob bcDinerjob : dinerjobList){
+                    SysDictDataVo sysDictDataVo = new SysDictDataVo();
+                    sysDictDataVo.setDictValue(bcDinerjob.getId().toString());
+                    sysDictDataVo.setDictCode(bcDinerjob.getId());
+                    sysDictDataVo.setDictLabel(bcDinerjob.getJobName());
+                    sysDictDataVo.setCssClass("");
+                    sysDictDataVo.setDictType(dictType);
+                    sysDictDataVo.setIsDefault("N");
+                    sysDictDataVo.setDictSort(i);
+                    i++;
+                    dictDatas.add(sysDictDataVo);
+                }
+            }else if (dictType.equals("bc_dinerdept")){
+                List<BcDinerdept> dinerdeptList = bcDinerdeptMapper.selectList(new LambdaQueryWrapper<BcDinerdept>().eq(BcDinerdept::getTenantId, tenantId));
+                for (BcDinerdept bcDinerdept : dinerdeptList){
+                    SysDictDataVo sysDictDataVo = new SysDictDataVo();
+                    sysDictDataVo.setDictValue(bcDinerdept.getId().toString());
+                    sysDictDataVo.setDictCode(bcDinerdept.getId());
+                    sysDictDataVo.setDictLabel(bcDinerdept.getDeptName());
+                    sysDictDataVo.setCssClass("");
+                    sysDictDataVo.setDictType(dictType);
+                    sysDictDataVo.setIsDefault("N");
+                    sysDictDataVo.setDictSort(i);
+                    i++;
+                    dictDatas.add(sysDictDataVo);
+                }
+            }
             return dictDatas;
         }
+
         return null;
     }
 
