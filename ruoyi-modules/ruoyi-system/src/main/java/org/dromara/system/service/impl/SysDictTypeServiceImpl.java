@@ -22,6 +22,8 @@ import org.dromara.common.redis.utils.CacheUtils;
 import org.dromara.common.satoken.utils.LoginHelper;
 import org.dromara.system.domain.BcDinerdept;
 import org.dromara.system.domain.BcDinerjob;
+import org.dromara.system.domain.BcMealfoodtype;
+import org.dromara.system.domain.BcMealservetime;
 import org.dromara.system.domain.SysDictData;
 import org.dromara.system.domain.SysDictType;
 import org.dromara.system.domain.bo.SysDictTypeBo;
@@ -29,6 +31,8 @@ import org.dromara.system.domain.vo.SysDictDataVo;
 import org.dromara.system.domain.vo.SysDictTypeVo;
 import org.dromara.system.mapper.BcDinerdeptMapper;
 import org.dromara.system.mapper.BcDinerjobMapper;
+import org.dromara.system.mapper.BcMealfoodtypeMapper;
+import org.dromara.system.mapper.BcMealservetimeMapper;
 import org.dromara.system.mapper.SysDictDataMapper;
 import org.dromara.system.mapper.SysDictTypeMapper;
 import org.dromara.system.service.ISysDictTypeService;
@@ -59,6 +63,10 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService, DictService 
     private BcDinerjobMapper bcDinerjobMapper;
     @Autowired
     private BcDinerdeptMapper bcDinerdeptMapper;
+    @Autowired
+    private BcMealfoodtypeMapper bcMealfoodtypeMapper;
+    @Autowired
+    private BcMealservetimeMapper bcMealservetimeMapper;
     @Override
     public TableDataInfo<SysDictTypeVo> selectPageDictTypeList(SysDictTypeBo dictType, PageQuery pageQuery) {
         LambdaQueryWrapper<SysDictType> lqw = buildQueryWrapper(dictType);
@@ -137,6 +145,34 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService, DictService 
                     sysDictDataVo.setDictValue(bcDinerdept.getId().toString());
                     sysDictDataVo.setDictCode(bcDinerdept.getId());
                     sysDictDataVo.setDictLabel(bcDinerdept.getDeptName());
+                    sysDictDataVo.setCssClass("");
+                    sysDictDataVo.setDictType(dictType);
+                    sysDictDataVo.setIsDefault("N");
+                    sysDictDataVo.setDictSort(i);
+                    i++;
+                    dictDatas.add(sysDictDataVo);
+                }
+            }else if (dictType.equals("bc_mealservetime")){
+                List<BcMealservetime> mealservetimeList = bcMealservetimeMapper.selectList(new LambdaQueryWrapper<BcMealservetime>().eq(BcMealservetime::getTenantId, tenantId));
+                for (BcMealservetime mealservetime : mealservetimeList){
+                    SysDictDataVo sysDictDataVo = new SysDictDataVo();
+                    sysDictDataVo.setDictValue(mealservetime.getId().toString());
+                    sysDictDataVo.setDictCode(mealservetime.getId());
+                    sysDictDataVo.setDictLabel(mealservetime.getServetimeName());
+                    sysDictDataVo.setCssClass("");
+                    sysDictDataVo.setDictType(dictType);
+                    sysDictDataVo.setIsDefault("N");
+                    sysDictDataVo.setDictSort(i);
+                    i++;
+                    dictDatas.add(sysDictDataVo);
+                }
+            }else if (dictType.equals("bc_mealfoodtype")){
+                List<BcMealfoodtype> mealfoodtypeList = bcMealfoodtypeMapper.selectList(new LambdaQueryWrapper<BcMealfoodtype>().eq(BcMealfoodtype::getTenantId, tenantId));
+                for (BcMealfoodtype mealfoodtype : mealfoodtypeList){
+                    SysDictDataVo sysDictDataVo = new SysDictDataVo();
+                    sysDictDataVo.setDictValue(mealfoodtype.getId().toString());
+                    sysDictDataVo.setDictCode(mealfoodtype.getId());
+                    sysDictDataVo.setDictLabel(mealfoodtype.getFoodtypeName());
                     sysDictDataVo.setCssClass("");
                     sysDictDataVo.setDictType(dictType);
                     sysDictDataVo.setIsDefault("N");
