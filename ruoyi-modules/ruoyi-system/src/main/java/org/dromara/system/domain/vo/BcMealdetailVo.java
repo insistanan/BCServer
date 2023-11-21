@@ -1,16 +1,18 @@
 package org.dromara.system.domain.vo;
 
+import java.math.BigDecimal;
+import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.dromara.system.domain.BcMealdetail;
 import com.alibaba.excel.annotation.ExcelIgnoreUnannotated;
 import com.alibaba.excel.annotation.ExcelProperty;
-import io.github.linpeilie.annotations.AutoMapper;
-import lombok.Data;
 import org.dromara.common.excel.annotation.ExcelDictFormat;
 import org.dromara.common.excel.convert.ExcelDictConvert;
-import org.dromara.system.domain.BcMealdetail;
+import io.github.linpeilie.annotations.AutoMapper;
+import lombok.Data;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 
 
@@ -18,8 +20,8 @@ import java.util.Date;
 /**
  * 报餐明细视图对象 bc_mealdetail
  *
- * @author anan
- * @date 2023-11-17
+ * @author 周强
+ * @date 2023-11-21
  */
 @Data
 @ExcelIgnoreUnannotated
@@ -76,6 +78,12 @@ public class BcMealdetailVo implements Serializable {
     private BigDecimal sumPrice;
 
     /**
+     * 用户ID
+     */
+    @ExcelProperty(value = "用户ID")
+    private Long personId;
+
+    /**
      * 订餐人姓名
      */
     @ExcelProperty(value = "订餐人姓名")
@@ -115,7 +123,7 @@ public class BcMealdetailVo implements Serializable {
      * 核销时间
      */
     @ExcelProperty(value = "核销时间")
-    private String verificationTime;
+    private Date verificationTime;
 
     /**
      * 状态（0正常 1停用）

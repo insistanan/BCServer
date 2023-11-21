@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.RequiredArgsConstructor;
+import org.dromara.common.core.utils.DateUtils;
 import org.dromara.common.mybatis.core.page.PageQuery;
 import org.dromara.common.mybatis.core.page.TableDataInfo;
 import org.dromara.system.domain.BcDinerreportServetime;
@@ -58,7 +59,8 @@ public class BcDinerreportServetimeServiceImpl implements IBcDinerreportServetim
 
     @Override
     public List<BcDinerreportServetimeVo> queryDinerreportServetime(BcDinerreportServetimeBo bo) {
-        return baseMapper.queryDinerreportServetime(bo.getBegindate(), bo.getEnddate());
+
+        return baseMapper.queryDinerreportServetime(DateUtils.parseDate(bo.getBegindate()), DateUtils.parseDate(bo.getEnddate()));
     }
 
     private LambdaQueryWrapper<BcDinerreportServetime> buildQueryWrapper(BcDinerreportServetimeBo bo) {

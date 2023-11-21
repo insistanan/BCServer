@@ -1,21 +1,20 @@
 package org.dromara.system.domain;
 
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.TableName;
+import org.dromara.common.tenant.core.TenantEntity;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.dromara.common.tenant.core.TenantEntity;
-
-import java.io.Serial;
 import java.math.BigDecimal;
 import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.io.Serial;
 
 /**
  * 报餐明细对象 bc_mealdetail
  *
- * @author anan
- * @date 2023-11-17
+ * @author 周强
+ * @date 2023-11-21
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -62,6 +61,11 @@ public class BcMealdetail extends TenantEntity {
     private BigDecimal sumPrice;
 
     /**
+     * 用户ID
+     */
+    private Long personId;
+
+    /**
      * 订餐人姓名
      */
     private String customerName;
@@ -94,7 +98,7 @@ public class BcMealdetail extends TenantEntity {
     /**
      * 核销时间
      */
-    private String verificationTime;
+    private Date verificationTime;
 
     /**
      * 状态（0正常 1停用）

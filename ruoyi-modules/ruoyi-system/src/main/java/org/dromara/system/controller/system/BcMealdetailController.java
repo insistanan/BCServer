@@ -25,8 +25,8 @@ import org.dromara.common.mybatis.core.page.TableDataInfo;
 /**
  * 报餐明细
  *
- * @author anan
- * @date 2023-11-17
+ * @author 周强
+ * @date 2023-11-21
  */
 @Validated
 @RequiredArgsConstructor

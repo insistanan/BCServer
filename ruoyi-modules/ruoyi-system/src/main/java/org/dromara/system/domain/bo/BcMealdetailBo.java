@@ -16,8 +16,8 @@ import java.util.Date;
 /**
  * 报餐明细业务对象 bc_mealdetail
  *
- * @author anan
- * @date 2023-11-17
+ * @author 周强
+ * @date 2023-11-21
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -33,19 +33,19 @@ public class BcMealdetailBo extends BaseEntity {
     /**
      * 用餐时段
      */
-    @NotBlank(message = "用餐时段不能为空", groups = { AddGroup.class, EditGroup.class })
+    @NotNull(message = "用餐时段不能为空", groups = { AddGroup.class, EditGroup.class })
     private Long foodGrounding;
 
     /**
      * 部门。部门id
      */
-    @NotNull(message = "部门。部门id不能为空", groups = { AddGroup.class, EditGroup.class })
+    @NotNull(message = "部门不能为空", groups = { AddGroup.class, EditGroup.class })
     private Long deptId;
 
     /**
      * 职务。职务id
      */
-    @NotNull(message = "职务。职务id不能为空", groups = { AddGroup.class, EditGroup.class })
+    @NotNull(message = "职务不能为空", groups = { AddGroup.class, EditGroup.class })
     private Long jobId;
 
     /**
@@ -65,6 +65,12 @@ public class BcMealdetailBo extends BaseEntity {
      */
     @NotNull(message = "金额不能为空", groups = { AddGroup.class, EditGroup.class })
     private BigDecimal sumPrice;
+
+    /**
+     * 用户ID
+     */
+    @NotNull(message = "用户ID不能为空", groups = { AddGroup.class, EditGroup.class })
+    private Long personId;
 
     /**
      * 订餐人姓名
@@ -87,31 +93,26 @@ public class BcMealdetailBo extends BaseEntity {
     /**
      * 用餐状态(0待用餐，1已用餐，2退款，3其他)
      */
-    @NotBlank(message = "用餐状态(0待用餐，1已用餐，2退款，3其他)不能为空", groups = { AddGroup.class, EditGroup.class })
     private String dinnerStatus;
 
     /**
      * 验证方式
      */
-    @NotBlank(message = "验证方式不能为空", groups = { AddGroup.class, EditGroup.class })
     private String authType;
 
     /**
      * 报餐时间
      */
-    @NotNull(message = "报餐时间不能为空", groups = { AddGroup.class, EditGroup.class })
     private Date bcTime;
 
     /**
      * 核销时间
      */
-    @NotBlank(message = "核销时间不能为空", groups = { AddGroup.class, EditGroup.class })
-    private String verificationTime;
+    private Date verificationTime;
 
     /**
      * 状态（0正常 1停用）
      */
-    @NotBlank(message = "状态（0正常 1停用）不能为空", groups = { AddGroup.class, EditGroup.class })
     private String status;
 
 

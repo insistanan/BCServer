@@ -22,8 +22,8 @@ import java.util.Collection;
 /**
  * 报餐明细Service业务层处理
  *
- * @author anan
- * @date 2023-11-17
+ * @author 周强
+ * @date 2023-11-21
  */
 @RequiredArgsConstructor
 @Service
@@ -67,13 +67,14 @@ public class BcMealdetailServiceImpl implements IBcMealdetailService {
         lqw.eq(bo.getFoodTypeid() != null, BcMealdetail::getFoodTypeid, bo.getFoodTypeid());
         lqw.eq(bo.getOrderId() != null, BcMealdetail::getOrderId, bo.getOrderId());
         lqw.eq(bo.getSumPrice() != null, BcMealdetail::getSumPrice, bo.getSumPrice());
+        lqw.eq(bo.getPersonId() != null, BcMealdetail::getPersonId, bo.getPersonId());
         lqw.like(StringUtils.isNotBlank(bo.getCustomerName()), BcMealdetail::getCustomerName, bo.getCustomerName());
         lqw.eq(StringUtils.isNotBlank(bo.getCustomerPhone()), BcMealdetail::getCustomerPhone, bo.getCustomerPhone());
         lqw.eq(bo.getDinnerTime() != null, BcMealdetail::getDinnerTime, bo.getDinnerTime());
         lqw.eq(StringUtils.isNotBlank(bo.getDinnerStatus()), BcMealdetail::getDinnerStatus, bo.getDinnerStatus());
         lqw.eq(StringUtils.isNotBlank(bo.getAuthType()), BcMealdetail::getAuthType, bo.getAuthType());
         lqw.eq(bo.getBcTime() != null, BcMealdetail::getBcTime, bo.getBcTime());
-        lqw.eq(StringUtils.isNotBlank(bo.getVerificationTime()), BcMealdetail::getVerificationTime, bo.getVerificationTime());
+        lqw.eq(bo.getVerificationTime() != null, BcMealdetail::getVerificationTime, bo.getVerificationTime());
         lqw.eq(StringUtils.isNotBlank(bo.getStatus()), BcMealdetail::getStatus, bo.getStatus());
         return lqw;
     }
