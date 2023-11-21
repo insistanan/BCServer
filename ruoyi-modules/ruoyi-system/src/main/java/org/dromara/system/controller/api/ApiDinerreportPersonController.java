@@ -7,8 +7,8 @@ import org.dromara.common.web.core.BaseController;
 import org.dromara.system.domain.vo.BcDinerpersonVo;
 import org.dromara.system.service.IBcDinerpersonService;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,9 +32,27 @@ public class ApiDinerreportPersonController extends BaseController {
      *
      * @param id 主键
      */
-    @GetMapping("/{id}")
+    @PostMapping("/{id}")
     public R<BcDinerpersonVo> getInfo(@NotNull(message = "主键不能为空")
                                       @PathVariable Long id) {
+        return R.ok(bcDinerpersonService.queryById(id));
+    }
+
+    @PostMapping ("/queryJoinRestaurant/{id}")
+    public R<BcDinerpersonVo> queryJoinRestaurant(@NotNull(message = "主键不能为空")
+                                      @PathVariable Long id) {
+        return R.ok(bcDinerpersonService.queryById(id));
+    }
+
+    @PostMapping ("/queryAddress/{id}")
+    public R<BcDinerpersonVo> queryAddress(@NotNull(message = "主键不能为空")
+                                                  @PathVariable Long id) {
+        return R.ok(bcDinerpersonService.queryById(id));
+    }
+
+    @PostMapping ("/queryMealRecord/{id}")
+    public R<BcDinerpersonVo> queryMealRecord(@NotNull(message = "主键不能为空")
+                                           @PathVariable Long id) {
         return R.ok(bcDinerpersonService.queryById(id));
     }
 
