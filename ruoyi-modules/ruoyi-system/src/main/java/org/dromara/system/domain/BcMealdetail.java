@@ -1,14 +1,15 @@
 package org.dromara.system.domain;
 
-import org.dromara.common.tenant.core.TenantEntity;
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import java.math.BigDecimal;
-import java.util.Date;
-import com.fasterxml.jackson.annotation.JsonFormat;
+import org.dromara.common.tenant.core.TenantEntity;
 
 import java.io.Serial;
+import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * 报餐明细对象 bc_mealdetail
@@ -33,7 +34,7 @@ public class BcMealdetail extends TenantEntity {
     /**
      * 用餐时段
      */
-    private String foodGrounding;
+    private Long foodGrounding;
 
     /**
      * 部门。部门id

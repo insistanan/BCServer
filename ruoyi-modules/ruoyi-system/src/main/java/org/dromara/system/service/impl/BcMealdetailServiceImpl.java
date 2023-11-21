@@ -61,7 +61,7 @@ public class BcMealdetailServiceImpl implements IBcMealdetailService {
     private LambdaQueryWrapper<BcMealdetail> buildQueryWrapper(BcMealdetailBo bo) {
         Map<String, Object> params = bo.getParams();
         LambdaQueryWrapper<BcMealdetail> lqw = Wrappers.lambdaQuery();
-        lqw.eq(StringUtils.isNotBlank(bo.getFoodGrounding()), BcMealdetail::getFoodGrounding, bo.getFoodGrounding());
+        lqw.eq(bo.getFoodGrounding() != null, BcMealdetail::getFoodGrounding, bo.getFoodGrounding());
         lqw.eq(bo.getDeptId() != null, BcMealdetail::getDeptId, bo.getDeptId());
         lqw.eq(bo.getJobId() != null, BcMealdetail::getJobId, bo.getJobId());
         lqw.eq(bo.getFoodTypeid() != null, BcMealdetail::getFoodTypeid, bo.getFoodTypeid());

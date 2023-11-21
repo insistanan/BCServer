@@ -1,16 +1,17 @@
 package org.dromara.system.domain.bo;
 
-import org.dromara.system.domain.BcMealdetail;
-import org.dromara.common.mybatis.core.domain.BaseEntity;
-import org.dromara.common.core.validate.AddGroup;
-import org.dromara.common.core.validate.EditGroup;
 import io.github.linpeilie.annotations.AutoMapper;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import jakarta.validation.constraints.*;
+import org.dromara.common.core.validate.AddGroup;
+import org.dromara.common.core.validate.EditGroup;
+import org.dromara.common.mybatis.core.domain.BaseEntity;
+import org.dromara.system.domain.BcMealdetail;
+
 import java.math.BigDecimal;
 import java.util.Date;
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * 报餐明细业务对象 bc_mealdetail
@@ -33,7 +34,7 @@ public class BcMealdetailBo extends BaseEntity {
      * 用餐时段
      */
     @NotBlank(message = "用餐时段不能为空", groups = { AddGroup.class, EditGroup.class })
-    private String foodGrounding;
+    private Long foodGrounding;
 
     /**
      * 部门。部门id

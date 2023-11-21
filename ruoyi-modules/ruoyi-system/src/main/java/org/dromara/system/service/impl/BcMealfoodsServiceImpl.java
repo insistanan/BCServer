@@ -70,7 +70,7 @@ public class BcMealfoodsServiceImpl implements IBcMealfoodsService {
         lqw.eq(bo.getLimitNum() != null, BcMealfoods::getLimitNum, bo.getLimitNum());
         lqw.eq(StringUtils.isNotBlank(bo.getStockNum()), BcMealfoods::getStockNum, bo.getStockNum());
         lqw.eq(StringUtils.isNotBlank(bo.getFirstReduce()), BcMealfoods::getFirstReduce, bo.getFirstReduce());
-        lqw.eq(StringUtils.isNotBlank(bo.getExplain()), BcMealfoods::getExplain, bo.getExplain());
+        lqw.eq(StringUtils.isNotBlank(bo.getRemark()), BcMealfoods::getRemark, bo.getRemark());
         lqw.eq(StringUtils.isNotBlank(bo.getOpenType()), BcMealfoods::getOpenType, bo.getOpenType());
         lqw.eq(StringUtils.isNotBlank(bo.getEnDept()), BcMealfoods::getEnDept, bo.getEnDept());
         lqw.eq(StringUtils.isNotBlank(bo.getEnJob()), BcMealfoods::getEnJob, bo.getEnJob());

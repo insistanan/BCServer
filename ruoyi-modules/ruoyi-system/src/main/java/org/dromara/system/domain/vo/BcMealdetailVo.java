@@ -1,18 +1,16 @@
 package org.dromara.system.domain.vo;
 
-import java.math.BigDecimal;
-import java.util.Date;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import org.dromara.system.domain.BcMealdetail;
 import com.alibaba.excel.annotation.ExcelIgnoreUnannotated;
 import com.alibaba.excel.annotation.ExcelProperty;
-import org.dromara.common.excel.annotation.ExcelDictFormat;
-import org.dromara.common.excel.convert.ExcelDictConvert;
 import io.github.linpeilie.annotations.AutoMapper;
 import lombok.Data;
+import org.dromara.common.excel.annotation.ExcelDictFormat;
+import org.dromara.common.excel.convert.ExcelDictConvert;
+import org.dromara.system.domain.BcMealdetail;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 
@@ -42,7 +40,7 @@ public class BcMealdetailVo implements Serializable {
      */
     @ExcelProperty(value = "用餐时段", converter = ExcelDictConvert.class)
     @ExcelDictFormat(dictType = "bc_mealservetime")
-    private String foodGrounding;
+    private Long foodGrounding;
 
     /**
      * 部门。部门id

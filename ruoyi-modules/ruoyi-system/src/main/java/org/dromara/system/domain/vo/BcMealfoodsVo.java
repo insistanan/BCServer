@@ -3,15 +3,11 @@ package org.dromara.system.domain.vo;
 import org.dromara.system.domain.BcMealfoods;
 import com.alibaba.excel.annotation.ExcelIgnoreUnannotated;
 import com.alibaba.excel.annotation.ExcelProperty;
-import org.dromara.common.excel.annotation.ExcelDictFormat;
-import org.dromara.common.excel.convert.ExcelDictConvert;
 import io.github.linpeilie.annotations.AutoMapper;
 import lombok.Data;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Date;
-
 
 
 /**
@@ -92,7 +88,7 @@ public class BcMealfoodsVo implements Serializable {
      * 菜品描述
      */
     @ExcelProperty(value = "菜品描述")
-    private String explain;
+    private String remark;
 
     /**
      * 开放类型，0-指定部门开放，1-全部开放

@@ -47,13 +47,11 @@ public class BcMealfoodsBo extends BaseEntity {
     /**
      * 菜品上架日期，1-7代表周一至周日
      */
-    @NotBlank(message = "菜品上架日期，1-7代表周一至周日不能为空", groups = { AddGroup.class, EditGroup.class })
     private String foodServerday;
 
     /**
      * 菜品类型
      */
-    @NotNull(message = "菜品类型不能为空", groups = { AddGroup.class, EditGroup.class })
     private Long foodTypeid;
 
     /**
@@ -65,49 +63,41 @@ public class BcMealfoodsBo extends BaseEntity {
     /**
      * 限购份数
      */
-    @NotNull(message = "限购份数不能为空", groups = { AddGroup.class, EditGroup.class })
     private Long limitNum;
 
     /**
      * 预设库存
      */
-    @NotBlank(message = "预设库存不能为空", groups = { AddGroup.class, EditGroup.class })
     private String stockNum;
 
     /**
      * 第一份减免
      */
-    @NotBlank(message = "第一份减免不能为空", groups = { AddGroup.class, EditGroup.class })
     private String firstReduce;
 
     /**
      * 菜品描述
      */
-    @NotBlank(message = "菜品描述不能为空", groups = { AddGroup.class, EditGroup.class })
-    private String explain;
+    private String remark;
 
     /**
      * 开放类型，0-指定部门开放，1-全部开放
      */
-    @NotBlank(message = "开放类型，0-指定部门开放，1-全部开放不能为空", groups = { AddGroup.class, EditGroup.class })
     private String openType;
 
     /**
      * 开放部门
      */
-    @NotBlank(message = "开放部门不能为空", groups = { AddGroup.class, EditGroup.class })
     private String enDept;
 
     /**
      * 开放职务
      */
-    @NotBlank(message = "开放职务不能为空", groups = { AddGroup.class, EditGroup.class })
     private String enJob;
 
     /**
      * 菜品图片
      */
-    @NotBlank(message = "菜品图片不能为空", groups = { AddGroup.class, EditGroup.class })
     private String foodImg;
 
 

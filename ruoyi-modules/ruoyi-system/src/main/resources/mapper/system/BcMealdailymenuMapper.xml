@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.dromara.system.mapper.BcMealdailymenuMapper">
+    <select id="selectBcMealdailymenu" parameterType="Long" resultType="BcMealdailymenuVo">
+        SELECT
+            t1.food_name,
+            t1.food_price,
+            t1.stock_num,
+            t1.food_img,
+            t.servetime_name,
+            t2.foodtype_name
+        FROM
+            bc_mealservetime t
+                LEFT JOIN bc_mealfoods t1 ON t.id = t1.food_grounding
+                LEFT JOIN bc_mealfoodtype t2 ON t1.food_typeid = t2.id
+        <if test="foodtypeId != null">
+            AND t2.id = #{foodtypeId}
+        </if>
+        <if test="servetimeId != null">
+            AND t.id = #{servetimeId}
+        </if>
+    </select>
+</mapper>

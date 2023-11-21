@@ -75,7 +75,7 @@ public class BcMealfoods extends TenantEntity {
     /**
      * 菜品描述
      */
-    private String explain;
+    private String remark;
 
     /**
      * 开放类型，0-指定部门开放，1-全部开放
