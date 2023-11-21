@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/dinerperson")
-public class ApiDinerreportPersonController extends BaseController {
+public class ApiOrderMealController extends BaseController {
 
     private final IBcDinerpersonService bcDinerpersonService;
 
