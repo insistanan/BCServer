@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Validated
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/dinerperson")
+@RequestMapping("/api/ordermeal")
 public class ApiOrderMealController extends BaseController {
 
     private final IBcDinerpersonService bcDinerpersonService;
