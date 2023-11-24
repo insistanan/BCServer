@@ -22,7 +22,7 @@ captcha:
 # 开发环境配置
 server:
   # 服务器的HTTP端口，默认为8080
-  port: 8080
+  port: 8081
   servlet:
     # 应用的访问路径
     context-path: /
@@ -74,6 +74,10 @@ spring:
       max-file-size: 10MB
       # 设置总上传的文件大小
       max-request-size: 20MB
+  # 静态资源目录
+  resources:
+#    static-locations: file:///var/www/baocan/upload-images/
+    static-locations: file:///D:/home/uploaded-images/
   mvc:
     format:
       date-time: yyyy-MM-dd HH:mm:ss
