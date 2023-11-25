@@ -47,7 +47,6 @@ public class BcSystemshowslideBo extends BaseEntity {
     /**
      * 状态，0-有效，1-失效
      */
-    @NotBlank(message = "状态，0-有效，1-失效不能为空", groups = { AddGroup.class, EditGroup.class })
     private String status;
 
 

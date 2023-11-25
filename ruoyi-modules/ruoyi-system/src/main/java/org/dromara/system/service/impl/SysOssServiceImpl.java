@@ -6,6 +6,8 @@ import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import org.dromara.common.core.constant.CacheNames;
 import org.dromara.common.core.exception.ServiceException;
 import org.dromara.common.core.service.OssService;
@@ -20,14 +22,15 @@ import org.dromara.common.oss.core.OssClient;
 import org.dromara.common.oss.entity.UploadResult;
 import org.dromara.common.oss.enumd.AccessPolicyType;
 import org.dromara.common.oss.factory.OssFactory;
+import org.dromara.common.tenant.helper.TenantHelper;
 import org.dromara.system.domain.SysOss;
 import org.dromara.system.domain.bo.SysOssBo;
 import org.dromara.system.domain.vo.SysOssVo;
 import org.dromara.system.mapper.SysOssMapper;
 import org.dromara.system.service.ISysOssService;
-import jakarta.servlet.http.HttpServletResponse;
-import lombok.RequiredArgsConstructor;
+import org.dromara.system.utils.CheckFileName;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -36,7 +39,18 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.*;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 文件上传 服务层实现
@@ -48,7 +62,8 @@ import java.util.*;
 public class SysOssServiceImpl implements ISysOssService, OssService {
 
     private final SysOssMapper baseMapper;
-
+    @Value("${spring.resources.static-locations}")
+    private  String url;
     @Override
     public TableDataInfo<SysOssVo> queryPageList(SysOssBo bo, PageQuery pageQuery) {
         LambdaQueryWrapper<SysOss> lqw = buildQueryWrapper(bo);
@@ -102,6 +117,13 @@ public class SysOssServiceImpl implements ISysOssService, OssService {
     public SysOssVo getById(Long ossId) {
         return baseMapper.selectVoById(ossId);
     }
+    @Override
+    public SysOssVo getByUrl(String url) {
+        LambdaQueryWrapper<SysOss> lqw = Wrappers.lambdaQuery();
+        lqw.eq(StringUtils.isNotBlank(url), SysOss::getUrl, url);
+        lqw.orderByAsc(SysOss::getOssId);
+        return baseMapper.selectVoOne(lqw);
+    }
 
     @Override
     public void download(Long ossId, HttpServletResponse response) throws IOException {
@@ -137,6 +159,48 @@ public class SysOssServiceImpl implements ISysOssService, OssService {
     }
 
     @Override
+    public SysOssVo uploadLocal(MultipartFile file) {
+        Path path;
+        try {
+            URI uri = new URI(url);
+            // 根据配置文件路径获取文件存储目录
+            path = Paths.get(uri);
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+        // 获取上传文件的名称
+        String fileFullName = file.getOriginalFilename();
+        // 获取租户id
+        String tenantId = TenantHelper.getTenantId();
+        LocalDate now = LocalDate.now();
+        String month = now.format(DateTimeFormatter.ofPattern("yyyy-MM"));
+        String day = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        String directoryPath = path + "/" + tenantId + "/" + month + "/";
+        // 先创建对应目录
+        path = Paths.get(directoryPath);
+        if (!Files.exists(path)) {
+            try {
+                Files.createDirectories(path);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        // 有目录之后再存文件
+        try {
+            path = Paths.get(directoryPath + day + "-" + fileFullName );
+            // 检查文件是否存在，如果存在，则添加适当的编号
+            path = CheckFileName.checkFileName(path);
+            fileFullName = path.getFileName().toString();
+            Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        UploadResult uploadResult = UploadResult.builder().url(path.toString()).filename(fileFullName).build();
+        // 保存文件信息
+        return buildResultEntityLocal(fileFullName, "local", "local", uploadResult);
+    }
+
+    @Override
     public SysOssVo upload(File file) {
         String originalfileName = file.getName();
         String suffix = StringUtils.substring(originalfileName, originalfileName.lastIndexOf("."), originalfileName.length());
@@ -157,6 +221,22 @@ public class SysOssServiceImpl implements ISysOssService, OssService {
         baseMapper.insert(oss);
         SysOssVo sysOssVo = MapstructUtils.convert(oss, SysOssVo.class);
         return this.matchingUrl(sysOssVo);
+    }
+
+    @NotNull
+    private SysOssVo buildResultEntityLocal(String originalfileName, String suffix, String configKey, UploadResult uploadResult) {
+        SysOss oss = new SysOss();
+        oss.setUrl(uploadResult.getUrl());
+        oss.setFileSuffix(suffix);
+        oss.setFileName(uploadResult.getFilename());
+        oss.setOriginalName(originalfileName);
+        oss.setService(configKey);
+        baseMapper.insert(oss);
+        SysOssVo sysOssVo = new SysOssVo();
+        sysOssVo.setOssId(oss.getOssId());
+        sysOssVo.setUrl(oss.getUrl());
+        sysOssVo.setFileName(oss.getFileName());
+        return sysOssVo;
     }
 
     @Override
