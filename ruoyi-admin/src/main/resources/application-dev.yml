@@ -45,7 +45,7 @@ spring:
           # rewriteBatchedStatements=true 批处理优化 大幅提升批量插入更新删除性能(对数据库有性能损耗 使用批量操作应考虑性能问题)
           url: jdbc:mariadb://localhost:3306/baocan?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8&autoReconnect=true&rewriteBatchedStatements=true&allowPublicKeyRetrieval=true
           username: baocan
-          password: ]eLkjsA)/Hz7)To(
+          password: ']eLkjsA)/Hz7)To('
         # 从库数据源
         slave:
           lazy: true
@@ -53,7 +53,7 @@ spring:
           driverClassName: org.mariadb.jdbc.Driver
           url: jdbc:mariadb://localhost:3306/baocan?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8&autoReconnect=true&rewriteBatchedStatements=true&allowPublicKeyRetrieval=true
           username: baocan
-          password: ]eLkjsA)/Hz7)To(
+          password: ']eLkjsA)/Hz7)To('
       #        oracle:
       #          type: ${spring.datasource.type}
       #          driverClassName: oracle.jdbc.OracleDriver
