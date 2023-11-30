@@ -21,46 +21,16 @@ import jakarta.validation.constraints.*;
 public class BcDinerreportPersonBo extends BaseEntity {
 
     /**
-     * id
+     * 查询起始日期
      */
-    @NotNull(message = "id不能为空", groups = { EditGroup.class })
-    private Long id;
+    @NotBlank(message = "查询起始日期不能为空", groups = { AddGroup.class, EditGroup.class })
+    private String begindate;
 
     /**
-     * 客户姓名
+     * 查询截止日期
      */
-    @NotBlank(message = "客户姓名不能为空", groups = { AddGroup.class, EditGroup.class })
-    private String customerName;
-
-    /**
-     * 部门
-     */
-    @NotBlank(message = "部门不能为空", groups = { AddGroup.class, EditGroup.class })
-    private String deptName;
-
-    /**
-     * 职务
-     */
-    @NotBlank(message = "职务不能为空", groups = { AddGroup.class, EditGroup.class })
-    private String jobName;
-
-    /**
-     * 用餐时段
-     */
-    @NotBlank(message = "用餐时段不能为空", groups = { AddGroup.class, EditGroup.class })
-    private String servetimeName;
-
-    /**
-     * 未实际就餐数
-     */
-    @NotNull(message = "未实际就餐数不能为空", groups = { AddGroup.class, EditGroup.class })
-    private Integer unusenum;
-
-    /**
-     * 时段未实际就餐数
-     */
-    @NotNull(message = "时段未实际就餐数不能为空", groups = { AddGroup.class, EditGroup.class })
-    private Integer singleunusenum;
+    @NotBlank(message = "查询截止日期不能为空", groups = { AddGroup.class, EditGroup.class })
+    private String enddate;
 
 
 }

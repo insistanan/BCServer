@@ -4,6 +4,9 @@ import org.dromara.system.domain.BcDinerreportPerson;
 import org.dromara.system.domain.vo.BcDinerreportPersonVo;
 import org.dromara.common.mybatis.core.mapper.BaseMapperPlus;
 
+import java.util.Date;
+import java.util.List;
+
 /**
  * 未实际就餐统计Mapper接口
  *
@@ -12,4 +15,5 @@ import org.dromara.common.mybatis.core.mapper.BaseMapperPlus;
  */
 public interface BcDinerreportPersonMapper extends BaseMapperPlus<BcDinerreportPerson, BcDinerreportPersonVo> {
 
+    List<BcDinerreportPersonVo> queryDinerreportPerson(Date parseDate, Date parseDate1);
 }

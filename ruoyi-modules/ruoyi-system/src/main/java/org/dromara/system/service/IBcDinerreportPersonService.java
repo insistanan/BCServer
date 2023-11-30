@@ -1,10 +1,9 @@
 package org.dromara.system.service;
 
-import org.dromara.system.domain.BcDinerreportPerson;
-import org.dromara.system.domain.vo.BcDinerreportPersonVo;
-import org.dromara.system.domain.bo.BcDinerreportPersonBo;
-import org.dromara.common.mybatis.core.page.TableDataInfo;
 import org.dromara.common.mybatis.core.page.PageQuery;
+import org.dromara.common.mybatis.core.page.TableDataInfo;
+import org.dromara.system.domain.bo.BcDinerreportPersonBo;
+import org.dromara.system.domain.vo.BcDinerreportPersonVo;
 
 import java.util.Collection;
 import java.util.List;
@@ -46,4 +45,6 @@ public interface IBcDinerreportPersonService {
      * 校验并批量删除未实际就餐统计信息
      */
     Boolean deleteWithValidByIds(Collection<Long> ids, Boolean isValid);
+
+    List<BcDinerreportPersonVo> queryDinerreportPerson(BcDinerreportPersonBo bo);
 }
