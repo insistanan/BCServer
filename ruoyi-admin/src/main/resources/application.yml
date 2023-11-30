@@ -21,7 +21,7 @@ captcha:
 
 # 开发环境配置
 server:
-  # 服务器的HTTP端口，默认为8080
+  # 服务器的HTTP端口，默认为8081
   port: 8081
   servlet:
     # 应用的访问路径
@@ -76,8 +76,8 @@ spring:
       max-request-size: 20MB
   # 静态资源目录
   resources:
-#    static-locations: file:///var/www/baocan/upload-images/
-    static-locations: file:///D:/home/uploaded-images/
+    static-locations: file:///var/www/baocan/upload-images/
+  #    static-locations: file:///D:/home/uploaded-images/
   mvc:
     format:
       date-time: yyyy-MM-dd HH:mm:ss
@@ -189,9 +189,9 @@ springdoc:
   api-docs:
     # 是否开启接口文档
     enabled: true
-#  swagger-ui:
-#    # 持久化认证数据
-#    persistAuthorization: true
+  #  swagger-ui:
+  #    # 持久化认证数据
+  #    persistAuthorization: true
   info:
     # 标题
     title: '标题：${ruoyi.name}多租户管理系统_接口文档'
@@ -201,9 +201,9 @@ springdoc:
     version: '版本号: ${ruoyi.version}'
     # 作者信息
     contact:
-      name: Lion Li
-      email: crazylionli@163.com
-      url: https://gitee.com/dromara/RuoYi-Vue-Plus
+      name: zq&anan
+      email: 741144861@qq.com
+      url: https://github.com/450MileForHome
   components:
     # 鉴权方式配置
     security-schemes:

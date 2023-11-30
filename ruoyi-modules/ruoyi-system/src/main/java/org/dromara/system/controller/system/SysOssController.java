@@ -97,22 +97,6 @@ public class SysOssController extends BaseController {
         return R.ok(uploadVo);
     }
 
-    @PostMapping("/doupload")
-    public R<String> handleFileUpload(@RequestParam("file") MultipartFile file) {
-        String fileName = file.getOriginalFilename();
-        // 保存文件到D:/home/uploaded-images/
-        // 实现文件保存的逻辑...
-        try {
-            Path path = Paths.get("D:/home/uploaded-images/" + file.getOriginalFilename());
-            Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return R.fail("Error: " + e.getMessage());
-        }
-
-        return R.ok("D:/home/uploaded-images/" + file.getOriginalFilename());
-    }
-
     /**
      * 下载OSS对象
      *

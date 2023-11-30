@@ -64,6 +64,8 @@ public class SysOssServiceImpl implements ISysOssService, OssService {
     private final SysOssMapper baseMapper;
     @Value("${spring.resources.static-locations}")
     private  String url;
+    @Value("${server.port}")
+    private String port;
     @Override
     public TableDataInfo<SysOssVo> queryPageList(SysOssBo bo, PageQuery pageQuery) {
         LambdaQueryWrapper<SysOss> lqw = buildQueryWrapper(bo);
@@ -195,7 +197,9 @@ public class SysOssServiceImpl implements ISysOssService, OssService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        UploadResult uploadResult = UploadResult.builder().url(path.toString()).filename(fileFullName).build();
+        int dotIndex = fileFullName.lastIndexOf('.');
+        String baseName = dotIndex == -1 ? fileFullName : fileFullName.substring(0,dotIndex);
+        UploadResult uploadResult = UploadResult.builder().url("http://localhost:" + port  +"/" + tenantId + "/" + month + "/" + fileFullName).filename(baseName).build();
         // 保存文件信息
         return buildResultEntityLocal(fileFullName, "local", "local", uploadResult);
     }

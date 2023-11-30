@@ -85,6 +85,13 @@
             <artifactId>ruoyi-common-mail</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.mariadb.jdbc</groupId>
+            <artifactId>mariadb-java-client</artifactId>
+            <version>2.7.1</version> <!-- 替换为您需要的版本号 -->
+        </dependency>
+
+
         <!-- skywalking 整合 logback -->
 <!--        <dependency>-->
 <!--            <groupId>org.apache.skywalking</groupId>-->
