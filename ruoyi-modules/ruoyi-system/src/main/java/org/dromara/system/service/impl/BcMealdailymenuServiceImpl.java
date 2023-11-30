@@ -55,8 +55,7 @@ public class BcMealdailymenuServiceImpl implements IBcMealdailymenuService {
      */
     @Override
     public List<BcMealdailymenuVo> queryList(BcMealdailymenuBo bo) {
-        LambdaQueryWrapper<BcMealdailymenu> lqw = buildQueryWrapper(bo);
-        return baseMapper.selectVoList(lqw);
+        return baseMapper.selectBcMealdailymenu(bo.getFoodtypeName(), bo.getFoodGrounding());
     }
 
     private LambdaQueryWrapper<BcMealdailymenu> buildQueryWrapper(BcMealdailymenuBo bo) {

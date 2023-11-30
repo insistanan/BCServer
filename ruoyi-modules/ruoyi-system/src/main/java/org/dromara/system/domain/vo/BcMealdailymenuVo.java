@@ -79,4 +79,12 @@ public class BcMealdailymenuVo implements Serializable {
     private Date searchTime;
 
 
+    private Integer servetimeNum;
+
+    private String servetimeRepotrendtime;
+
+    private Integer limitNum;
+
+    private String foodServerday;
+
 }

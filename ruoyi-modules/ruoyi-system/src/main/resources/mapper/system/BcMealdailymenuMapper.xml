@@ -5,12 +5,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="org.dromara.system.mapper.BcMealdailymenuMapper">
     <select id="selectBcMealdailymenu" parameterType="Long" resultType="BcMealdailymenuVo">
         SELECT
-            t1.food_name,
-            t1.food_price,
-            t1.stock_num,
-            t1.food_img,
-            t.servetime_name,
-            t2.foodtype_name
+        t1.food_name,
+        t1.food_price,
+        t1.stock_num,
+        t1.food_img,
+        t.servetime_name,
+        t2.foodtype_name,
+        t.servetime_num,
+        t.servetime_repotrendtime,
+        t1.limit_num,
+        t1.food_serverday
         FROM
             bc_mealservetime t
                 LEFT JOIN bc_mealfoods t1 ON t.id = t1.food_grounding
