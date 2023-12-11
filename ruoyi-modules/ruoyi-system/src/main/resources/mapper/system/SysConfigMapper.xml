@@ -4,4 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.dromara.system.mapper.SysConfigMapper">
 
+    <select id="getQrAccountFlag" resultType="java.lang.String">
+        select config_value from sys_config where tenantId = #{tenantId}
+    </select>
 </mapper>

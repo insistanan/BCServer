@@ -1,0 +1,1 @@
+INSERT INTO `baocan`.`sys_config` (`config_id`, `tenant_id`, `config_name`, `config_key`, `config_value`, `config_type`, `create_dept`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES (1732737577800187905, '000000', '是否开启扫码核销', 'sys.qraccount.flag', 'false', 'Y', 103, 1, '2023-12-07 20:23:26', 1, '2023-12-07 20:23:26', 'true:开启扫码核销\nfalse:关闭扫码核销');

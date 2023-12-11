@@ -214,4 +214,9 @@ public class SysConfigServiceImpl implements ISysConfigService, ConfigService {
         return SpringUtils.getAopProxy(this).selectConfigByKey(configKey);
     }
 
+    public Boolean getQrAccountFlag(String tenantId) {
+        String qrAccountFlag = baseMapper.getQrAccountFlag(tenantId);
+        if (qrAccountFlag.equals("true")) return true;
+        return false;
+    }
 }
