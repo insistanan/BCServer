@@ -199,7 +199,8 @@ public class SysOssServiceImpl implements ISysOssService, OssService {
         }
         int dotIndex = fileFullName.lastIndexOf('.');
         String baseName = dotIndex == -1 ? fileFullName : fileFullName.substring(0,dotIndex);
-        UploadResult uploadResult = UploadResult.builder().url("http://localhost:" + port  +"/" + tenantId + "/" + month + "/" + fileFullName).filename(baseName).build();
+//        UploadResult uploadResult = UploadResult.builder().url("http://localhost:" + port  +"/" + tenantId + "/" + month + "/" + fileFullName).filename(baseName).build();
+        UploadResult uploadResult = UploadResult.builder().url("http://49.234.219.218/:80" + "/file/" + tenantId + "/" + month + "/" + fileFullName).filename(baseName).build();
         // 保存文件信息
         return buildResultEntityLocal(fileFullName, "local", "local", uploadResult);
     }
